@@ -1,0 +1,287 @@
+@charset "utf-8";
+@import "./core/common";
+@import "./core/swiper";
+//总通用样式
+.ms-controller{
+  visibility: hidden
+}
+.container{
+  width:10.8rem;
+  .ovhide();
+  .auto();
+}
+.btn_sprite{
+  .bg_img("btn_sprite.jpg");
+  background-size:8.89rem 9rem;
+}
+.disabled_btn{
+  color:#a1a1a1!important;
+  cursor:default!important;
+  &:link,&:visited{
+    color:#a1a1a1!important;
+    cursor:default!important;
+  }
+}
+//头部banner,表单样式
+.header{
+  width:100%;
+  height:14.8rem;
+}
+.header_banner{
+  width:10.8rem;
+  height:5.71rem;
+  .ovhide();
+}
+.header_banner__img{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.header_form{
+  width:10.12rem;
+  height:10.58rem;
+  .ovhide();
+  .auto();
+  position:relative;
+  z-index:1;
+  margin-top:-1.7rem;
+  .bg_img("win_bg.png");
+}
+.header_form__title{
+  width:7.16rem;
+  height:1.2rem;
+  line-height:1.2rem;
+  font-size:0.48rem;
+  color:#fff;
+  text-align:center;
+  .auto();
+  margin-top:0.2rem;
+  //margin-bottom:1.08rem;
+  margin-bottom:1.8rem;
+  font-weight:bold;
+}
+.header-form__con{
+  width:8.1rem;
+  height:1.08rem;
+  border-bottom:1px solid #ebebeb;
+  .auto();
+  .ovhide();
+  margin-bottom:0.5rem;
+}
+.header-form__input{
+  width:5.6rem;
+  height:0.88rem;
+  padding-left:0.2rem;
+  line-height:1.08rem;
+  .ib(top);
+  border:none;
+  font-size:0.48rem;
+  font-weight:bold;
+}
+.header-form__code{
+  .ib(top);
+  font-size:0.42rem;
+  line-height:1.08rem;
+  color:#eb5e00;
+  &:link,&.visited{
+    color:#eb5e00;
+  }
+}
+.header-form__btn{
+  .text_hide();
+  width:8.89rem;
+  height:1.84rem;
+  display:block;
+  .auto();
+}
+.header-form__receive{
+  margin-top:1.5rem;
+  &:hover{
+    background-position:0 -1.84rem;
+  }
+}
+.header-form__vip{
+  background-position:0 -3.68rem;
+  &:hover{
+    background-position:0 -5.52rem;
+  }
+}
+.exchange_title{
+  .text_hide();
+  width:100%;
+  height:1.51rem;
+}
+//查看特权
+.vip{
+  width:100%;
+  .ovhide();
+}
+.vip_title{
+  .bg_img("privilege_title.jpg");
+}
+.swiper-wrapper{
+  width:500%;
+  height:4.33rem!important;
+  padding-bottom:0.27rem;
+}
+.swiper-slide{
+  height:4.33rem!important;
+}
+.vip_link,.vip_img{
+  width:10.8rem;
+  height:4.33rem;
+}
+.vip_link{
+  display:block;
+}
+.vip_img{
+  vertical-align: top;
+}
+.vip_pagination{
+  width:100%;
+  line-height:0;
+  text-align:center;
+  font-size:0;
+  //margin:0.27rem 0;
+}
+.swiper-pagination-switch{
+  width:1.1rem;
+  height:0.16rem;
+  display:inline-block;
+  margin:0 0.175rem;
+  background:#dcdcdc;
+}
+.swiper-active-switch{
+  background:#fc6f52;
+}
+.vip_btn{
+  width:100%;
+  margin-top:0.27rem;
+  text-align:center;
+}
+.vip_look{
+  font-size:0.42rem;
+  text-decoration: underline;
+  color:#909090;
+  &:link,&.visited{
+    color:#909090;
+    text-decoration: underline;
+  }
+}
+//other
+.other{
+  width:100%;
+  .ovhide();
+  margin-bottom:1.2rem;
+}
+.other-link{
+  display:block;
+  width:100%;
+}
+.other-img{
+  width:100%;
+}
+.otehr_title{
+  width:100%;
+  color:#3c3c3c;
+  text-align:center;
+  font-size:0.48rem;
+  line-height: 1.2rem;
+}
+//活动规则
+.rule{
+  width:100%;
+  margin-top:1.2rem;
+  padding:0.34rem 0 0.75rem 0;
+  background-color:#fbf5f3;
+}
+.rule_title{
+  .bg_img("rule_title.jpg");
+}
+.rule_list{
+  width:9.8rem;
+  line-height:0.64rem;
+  font-size:0.36rem;
+  color:#5a5a5a;
+  list-style-type:decimal ;
+  padding-left:0.42rem;
+  .auto();
+}
+//底部
+.bottom{
+  width:100%;
+  height:1.34rem;
+  .bg_img("bottom_img.jpg");
+}
+//弹窗样式
+.win{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:999;
+  text-align:center;
+  background-color:rgba(0,0,0,0.5);
+  //display:none;
+}
+.win-con{
+  width:8.12rem;
+  position:absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translate(-50%,-50%);
+  -moz-transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+  .ovhide();
+  background:#fff;
+}
+.win_icon{
+  width:1.25rem;
+  height:1.25rem;
+}
+.win-tips{
+  padding:0.95rem 0 0.77rem 0;
+}
+.win-con__tips{
+  width:90%;
+  .auto();
+  text-align:center;
+  font-size:0.4rem;
+  line-height:0.8rem;
+  margin-top:0.64rem;
+}
+.close_btn{
+  .text_hide();
+  width:0.52rem;
+  height:0.52rem;
+  display:block;
+  position:absolute;
+  top:0.35rem;
+  right:0.35rem;
+  background-position:-6rem -7.34rem;
+}
+.win-prize{
+  padding:0.62rem 0 0.92rem 0;
+}
+.win_con__title{
+  width:100%;
+  font-weight:bold;
+  text-align:center;
+  font-size:0.54rem;
+  line-height:0.84rem;
+  margin-bottom:0.65rem;
+}
+.win_con__img{
+  width:6.01rem;
+  height:2.3rem;
+}
+.win-con__use{
+  .text_hide();
+  width:6.01rem;
+  height:1.65rem;
+  display:block;
+  .auto();
+  margin-top:0.55rem;
+  background-position:0 -7.35rem;
+}

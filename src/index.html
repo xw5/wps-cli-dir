@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" itemprop="description" content="WPS会员中心,免费会员注册,高品质会员办公服务,开通会员享有：会员模板特权、轻办公特权、商城折扣特权,VIP生活,睿享办公">
+    <meta name="keywords" content="wps会员,wps会员账号,wps会员注册,wps vip,稻米,稻米卡,会员模板,vip模板">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wps稻壳会员特权7天免费领取</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <h1 class="text_hide">wps稻壳会员特权7天免费领取</h1>
+    <div class="container ms-controller" ms-controller="dockerExchange">
+        <!--  头部banner,表单  S-->
+        <div class="header">
+            <div class="header_banner">
+                <p class="text_hide">* 新用户免费领取会员及现金券，老用户领取现金券</p>
+                <img class="header_banner__img" :attr="{src:@headerBanner}">
+            </div>
+            <div class="header_form">
+                <h3 class="header_form__title">{{@pageTitle}}</h3>
+                <p class="header-form__con">
+                    <input ms-duplex="@tel" type="tel" placeholder="请输入手机号" class="header-form__input">
+                </p>
+                <p class="header-form__con">
+                    <input ms-duplex="@telCode" type="text" class="header-form__input" placeholder="请输入验证码">
+                    <a href="javascript:void(0);" class="header-form__code" :class="[@isSending && 'disabled_btn']" ms-click="getTelCode">{{@codeTips}}</a>
+                </p>
+                <a href="javascript:void(0);" class="btn_sprite header-form__btn header-form__receive" ms-click="getPrize">立即领取</a>
+                <!--<a href="javascript:void(0);" class="btn_sprite header-form__btn header-form__vip">开通会员</a>-->
+            </div>
+        </div>
+        <!--  头部banner,表单  E-->
+        <!--  稻壳会员特权  S-->
+        <div class="vip">
+            <h3 class="exchange_title vip_title">稻壳会员特权</h3>
+            <div class="swiper-container" id="vipExchangeList">
+                <div class="swiper-wrapper">
+                    <!--<div class="swiper-slide">-->
+                        <!--<a href="javascript:void(0);" class="vip_link"><img class="vip_img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/privilege_banner0.jpg?v=<%$media_ver%>" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide">-->
+                        <!--<a href="javascript:void(0);" class="vip_link"><img class="vip_img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/privilege_banner1.jpg?v=<%$media_ver%>" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide">-->
+                        <!--<a href="javascript:void(0);" class="vip_link"><img class="vip_img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/privilege_banner2.jpg?v=<%$media_ver%>" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide">-->
+                        <!--<a href="javascript:void(0);" class="vip_link"><img class="vip_img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/privilege_banner3.jpg?v=<%$media_ver%>" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide">-->
+                        <!--<a href="javascript:void(0);" class="vip_link"><img class="vip_img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/privilege_banner4.jpg?v=<%$media_ver%>" alt=""></a>-->
+                    <!--</div>-->
+                    <div class="swiper-slide" ms-for="($index,el) in @vipImg">
+                        <a :attr="{href:el.link ? el.link :'javascript:void(0);'}" class="vip_link">
+                            <img class="vip_img" :attr="{src:el.img}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="pagination vip_pagination"></div>
+            </div>
+            <p class="vip_btn" :visible="isShowAllPrivilege"><a href="javascript:void(0);" ms-click="@privilegeDetailFlag=true" ms-click-2="sendCollect('点击', '全部特权展示')" class="vip_look">查看全部特权&gt;</a></p>
+        </div>
+        <!--  稻壳会员特权  E-->
+        <!--  其它内容  S-->
+        <!--<div class="other">-->
+            <!--<a href="javascript:void(0);" class="other-link"><img class="other-img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/ad_img.jpg?v=<%$media_ver%>" alt=""></a>-->
+            <!--<h3 class="otehr_title">主内容标题，不配置不显示</h3>-->
+        <!--</div>-->
+        <!--  其它内容  E-->
+        <!--  活动规则  S-->
+        <div class="rule">
+            <h3 class="exchange_title rule_title">稻壳会员特权</h3>
+            <ul class="rule_list">
+                <!--<li class="rule_list__con">上述活动内容，仅在本页面参与有效，本次活动仅限WPS新用户领取，每个电话号码有且仅有一次会员领取机会</li>-->
+                <!--<li class="rule_list__con">wps稻壳会员、超级会员为虚拟产品，开通成功后，不支持取消和退款。开通会员前请用户确认登陆账户正确，避免充值到错误账号如遇网络延迟，请用户在24小时内查看会员到账情况</li>-->
+                <!--<li class="rule_list__con">WPS稻壳会员特权领取后即默认开通会员，请用户在有效期内前往稻壳儿商城使用，如遇网络延迟，请用户在24小时内查看会员到账情况</li>-->
+                <!--<li class="rule_list__con">WPS稻壳会员特权领取后即默认开通会员，请用户在有效期内前往稻壳儿商城使用，如遇网络延迟，请用户在24小时内查看会员到账情况</li>-->
+                <!--<li class="rule_list__con">如有疑问，请联系客服热线：4006775005</li>-->
+                <li class="rule_list__con" ms-for="($index,el) in @ruleList">{{el}}</li>
+            </ul>
+        </div>
+        <!--  活动规则  E-->
+        <div class="bottom"></div>
+        <!--  错误提示弹窗  S-->
+        <div class="win" :visible="@tipsStr != ''">
+            <div class="win-con win-tips">
+                <img :attr="{src:!@isShowTipsBtn?'./assets/img/error_icon.jpg':'./assets/img/ok_icon.png'}" alt="" class="win_icon">
+                <p class="win-con__tips">{{@tipsStr}}</p>
+                <a href="https://my.docer.com/#!/myCoupons" ms-if="isShowTipsBtn" class="btn_sprite win-con__use">去使用</a>
+                <a href="javascript:void(0);" class="btn_sprite close_btn" ms-click="@tipsStr = ''">关闭</a>
+            </div>
+        </div>
+        <!--  错误提示弹窗  E-->
+        <!--  恭喜成功领取弹窗  S-->
+        <div class="win" :if="@isShowPrize">
+            <div class="win-con win-prize">
+                <p class="win_con__title">恭喜成功领取</p>
+                <!--<img class="win_con__img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/prize0.jpg?v=<%$media_ver%>" alt="稻壳会员七天体验券">-->
+                <!--<img class="win_con__img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/prize1.jpg?v=<%$media_ver%>" alt="5元会员无门槛券">-->
+                <!--<img class="win_con__img" src="<%$media_prefix%>/views/zt/2018/docer_08_exchange/css/img/prize2.jpg?v=<%$media_ver%>" alt="满100减20元">-->
+                <img class="win_con__img" ms-for="($index,el) in prizeUrl" :attr="{src:el}">
+
+                <a ms-click="gotoGetPrize" href="javascript:void(0);"  class="btn_sprite win-con__use">去使用</a>
+                <a href="javascript:void(0);" class="btn_sprite close_btn" ms-click="@isShowPrize = false">关闭</a>
+            </div>
+        </div>
+        <!--  恭喜成功领取弹窗  E-->
+        <!-- 特权弹出框  S-->
+        <div remark="特权弹出框" :html="@privilegeDetailHtml"></div>
+        <!-- 特权弹出框  E-->
+    </div>
+    <script type="text/javascript">
+        //var datamodel = <%$data_model%>;
+        var datamodel = {"loginmode":"","phone":"","channel":"tencent","userinfo":"","config":{"state":1,"title":"\u4e00\u952e\u9886\u53d6800\u4e07+\u529e\u516c\u8d44\u6e90","banner_color":"","extend_title":"WPS\u7a3b\u58f3\u4f1a\u54587\u5929","extend_params":[{"img":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/privilege_banner3.jpg","link":"http:\/\/z.wps.cn\/mult"},{"img":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/privilege_banner4.jpg","link":"http:\/\/z.wps.cn\/mult"},{"img":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/privilege_banner0.jpg","link":"http:\/\/z.wps.cn\/mult"},{"img":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/privilege_banner1.jpg","link":"http:\/\/z.wps.cn\/mult"},{"img":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/privilege_banner2.jpg","link":"http:\/\/z.wps.cn\/mult"}],"rule_title":"","rule_list":["\u4e0a\u8ff0\u6d3b\u52a8\u5185\u5bb9\uff0c\u4ec5\u5728\u672c\u9875\u9762\u53c2\u4e0e\u6709\u6548\uff0c\u65b0\u7528\u6237\u53ef\u9886\u53d6\u4f1a\u5458\u4ee5\u53ca\u4f18\u60e0\u5238\uff0c\u8001\u7528\u6237\u53ef\u9886\u53d6\u4f18\u60e0\u5238\uff0c\u65b0\u7528\u6237\u4e3a\u5386\u53f2\u672a\u8d2d\u4e70\u3001\u672a\u9886\u53d6\u7a3b\u58f3\u4f1a\u5458\u3001\u8d85\u7ea7\u4f1a\u5458","\nwps\u7a3b\u58f3\u4f1a\u5458\u3001\u8d85\u7ea7\u4f1a\u5458\u4e3a\u865a\u62df\u4ea7\u54c1\uff0c\u5f00\u901a\u6210\u529f\u540e\uff0c\u4e0d\u652f\u6301\u53d6\u6d88\u548c\u9000\u6b3e\u3002\u5f00\u901a\u4f1a\u5458\u524d\u8bf7\u7528\u6237\u786e\u8ba4\u767b\u9646\u8d26\u6237\u6b63\u786e\uff0c\u907f\u514d\u5145\u503c\u5230\u9519\u8bef\u8d26\u53f7\u5982\u9047\u7f51\u7edc\u5ef6\u8fdf\uff0c\u8bf7\u7528\u6237\u572824\u5c0f\u65f6\u5185\u67e5\u770b\u4f1a\u5458\u5230\u8d26\u60c5\u51b5","\nWPS\u7a3b\u58f3\u4f1a\u5458\u9886\u53d6\u540e\u5373\u9ed8\u8ba4\u5f00\u901a\u4f1a\u5458\uff0c\u4f18\u60e0\u5238\u9886\u53d6\u5373\u751f\u6548\uff0c\u8bf7\u7528\u6237\u5728\u6709\u6548\u671f\u5185\u524d\u5f80\u7a3b\u58f3\u513f\u5546\u57ce\u4f7f\u7528\uff0c\u5982\u9047\u7f51\u7edc\u5ef6\u8fdf\uff0c\u8bf7\u7528\u6237\u572824\u5c0f\u65f6\u5185\u67e5\u770b\u4f1a\u5458\u5230\u8d26\u60c5\u51b5","\n\u5982\u679c\u51fa\u73b0\u8fdd\u89c4\u884c\u4e3a\uff08\u5982\u4f5c\u5f0a\u9886\u53d6\u3001\u6076\u610f\u5957\u73b0\u7b49\uff09\uff0c\u6211\u4eec\u5c06\u53d6\u6d88\u7528\u6237\u7684\u4f1a\u5458\u8bd5\u7528\u8d44\u683c\uff1b\u540c\u65f6\u6709\u6743\u64a4\u9500\u8fdd\u89c4\u4ea4\u6613\uff0c\u6536\u56de\u4f18\u60e0\u5238\uff08\u5305\u62ec\u5df2\u4f7f\u7528\u7684\u4ee5\u53ca\u672a\u4f7f\u7528\u7684\uff09\uff1b\u5fc5\u8981\u65f6\u5c06\u8ffd\u7a76\u8fdd\u89c4\u7528\u6237\u7684\u6cd5\u5f8b\u8d23\u4efb","\n\u5982\u6709\u7591\u95ee\uff0c\u8bf7\u8054\u7cfb\u5ba2\u670d\u70ed\u7ebf\uff1a4006775005"],"banner":{"img_url":"http:\/\/dl.op.wpscdn.cn\/odimg\/web\/2018-08-23\/034255\/header_banner.jpg","btn":"","link":"","ui_img_url":""},"reward_img":"http:\/\/img2.file.cache.docer.com\/storage\/image\/7\/3\/7\/1\/9\/4934794d3890f01e7ad17fc51ebae394.jpg"},"auto_receive":[],"payconfig":"docer_exchange_tencent"};
+    </script>
+    <script type="text/javascript" src="./js/lib/swiper/swiper.js"></script>
+    <script type="text/javascript" src="//s3.vip.wpscdn.cn/web-libs/js/require/2.1.22/require.js" data-main="./js/index.js"></script>
+    <!--<script type="text/javascript" src="./js/index.js"></script>-->
+    <!-- CNZZ统计 -->
+    <div style="display: none;">
+        <!-- CNZZ数据统计-->
+        <script type="text/javascript">
+            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+            document.write(unescape("%3Cspan id='cnzz_stat_icon_1261599741'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1261599741' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+    </div>
+</body>
+</html>
