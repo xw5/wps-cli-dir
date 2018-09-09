@@ -34,7 +34,9 @@
     "gulp-uglify": "^3.0.0",
     "gulp-url-replace": "^1.0.2",
     "http-proxy-middleware": "^0.17.4",
-    "run-sequence": "^2.2.1"
+    "run-sequence": "^2.2.1",
+    "vinyl-named": "^1.1.0",
+    "webpack-stream": "^5.1.1"
   },
   "dependencies": {
   }

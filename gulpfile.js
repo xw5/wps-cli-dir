@@ -1,11 +1,14 @@
 var gulp = require("gulp");
 var gp = require("gulp-load-plugins")();
+var named = require('vinyl-named');
+var webpack = require('webpack-stream');
+var webpackConfig = require('./webpack.config');
 var runSequence = require("run-sequence");
 var browserSync = require('browser-sync').create();
-//var proxyMiddleware = require("http-proxy-middleware");
 var serverProxy = require('./config/server');
 var config = require('./config/config');
 
+console.log(config);
 //编译的路径定义
 var devUrl = './dist/';
 var publishUrl = './publish/';
@@ -54,12 +57,13 @@ function showErr(error){
 }
 
 //开发环境编译less任务,同时做兼容处理
-gulp.task('less',function(){
-	return gulp.src("./src/less/*.less")
-	.pipe(gp.debug({title:'less解析:'}))
+gulp.task('cssresolve',function(){
+	return gulp.src(config.css === 'less' ? './src/less/*.less' :'./src/sass/*.scss')
+	.pipe(gp.debug({title:config.css === 'less' ? 'less解析:' : 'scss解析:'}))
 	.pipe(gp.sourcemaps.init())
 	//less解析
-	.pipe(gp.less())
+	.pipe(gp.if(config.css === 'less',gp.less()))
+	.pipe(gp.if(config.css === 'scss',gp.sass()))
 	//浏览器兼容前缀添加
 	.pipe(gp.autoprefixer({
 		browsers:["last 1000 versions"]
@@ -106,37 +110,25 @@ gulp.task('include',function(){
 	.pipe(gulp.dest(devUrl))
 });
 
-//js模块化开发webpack
-gulp.task("webpack",function(){
+//js模块化开发如果是根据条件走require,webpack,ES6
+gulp.task("jspack",function(){
 	return gulp.src("./src/js/*.js")
-    .pipe(gp.debug({title:'js打包webpack:'}))
+    .pipe(gp.debug({title:config.js ==='webpack'?'js打包webpack:':'js打包require:'}))
 	.pipe(gp.sourcemaps.init())
-	.pipe(named())
-	.pipe(webpack(webpackConfig))
+	.pipe(gp.if(config.js === 'webpack' || config.js === 'es6',named()))
+	.pipe(gp.if(config.js === 'webpack' || config.js === 'es6',webpack(webpackConfig)))
+	.pipe(gp.if(config.js === 'requirejs',
+		gp.requirejsOptimize({
+			optimize: 'none',
+			mainConfigFile: './config/requirejsconfig.js'
+	})))
+	.pipe(gp.if(!isDev, gp.uglify({
+		ie8:true
+	})))
 	.on('error',showErr)
 	.pipe(gp.rev())
 	.pipe(gp.sourcemaps.write('.'))
 	.pipe(gulp.dest(devUrl+"js"))
-	.pipe(gp.rev.manifest())
-	.pipe(gulp.dest(revUrl+'js/'))
-});
-
-//js模块化开发requirejs
-gulp.task('rjs', function(){
-	return gulp.src('src/js/*.js')
-	.pipe(gp.debug({title:'js打包requirejs:'}))
-	.pipe(gp.sourcemaps.init())
-	.pipe(
-		gp.requirejsOptimize({
-			optimize: 'none',
-			mainConfigFile: './config/requirejsconfig.js'
-	}))
-	.pipe(gp.if(!isDev, gp.uglify({
-		ie8:true
-	})))
-	.pipe(gp.rev())
-	.pipe(gp.sourcemaps.write('.'))
-	.pipe(gulp.dest(devUrl+'js/'))
 	.pipe(gp.rev.manifest())
 	.pipe(gulp.dest(revUrl+'js/'))
 });
@@ -200,15 +192,15 @@ gulp.task("server",function(){
 gulp.task("watch",function(){
 	gulp.watch("src/js/**/*.js",function(){
 		console.log('===================js监听到修改===================');
-		runSequence("clean:js","rjs","include","revHtmlCss","revHtmlJs","revHtmlAssets","revJs");
+		runSequence("clean:js","jspack","include","revHtmlCss","revHtmlJs","revHtmlAssets","revJs");
 	});
 	gulp.watch("src/assets/**/*.*",function(){
 		console.log('===================assets监听到修改===================');
 		runSequence("clean:assets","assetsMove","include","revHtmlCss","revHtmlJs","revHtmlAssets","revCss","revJs");
 	});
-	gulp.watch("src/less/**/*.*",function(){
+	gulp.watch(config.css === 'less' ? "src/less/**/*.*" : "src/sass/**/*.*",function(){
 		console.log('===================less监听到修改===================');
-    	runSequence("clean:css","less","include","revHtmlCss","revHtmlJs","revHtmlAssets","revCss");
+    	runSequence("clean:css","cssresolve","include","revHtmlCss","revHtmlJs","revHtmlAssets","revCss");
 	});
 	gulp.watch(["src/*.html","src/template/*.*"],function(){
 		console.log('===================html监听到修改===================');
@@ -219,5 +211,5 @@ gulp.task("watch",function(){
 //开发&&构建
 gulp.task('dev',function(){
 	console.log(isDev?'===================启动开发流程===================':'===================启动构建流程===================')
-  runSequence("clean:dist",["less","libMove","rjs","assetsMove","include"],'revHtmlCss','revHtmlJs','revCss','revJs','revHtmlAssets',"server","watch");
+  runSequence("clean:dist",["cssresolve","libMove","jspack","assetsMove","include"],'revHtmlCss','revHtmlJs','revCss','revJs','revHtmlAssets',"server","watch");
 });

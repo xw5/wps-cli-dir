@@ -1,11 +1,9 @@
 'use strict';
 require.config({
+    baseUrrl:'js/',
     paths: {
-        util: './core/util',
-        openAjax:'./core/openAjax',
-        text:'./core/text',
-        jquery: '//s1.vas.wpscdn.cn/web-libs/js/jquery/1.11.3/jquery',
-        avalon: '//s1.vas.wpscdn.cn/web-libs/js/avalon/2.2.4/avalon'
+        util: 'core/util',
+        openAjax:'core/openAjax'
     }
 });
 

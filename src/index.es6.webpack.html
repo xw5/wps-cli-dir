@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    @@include("template/meta.html",{
+        "title":"这是我的标题"
+    })
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <h1 class="text_hide">这是利于SEO的标题!</h1>
+    <div class="container ms-controller" ms-controller="testExchange">
+        <!-- 头部导航 S-->
+        @@include("template/header.html",{
+            "href":"javascript:void(0);"
+        })
+        <!-- 头部导航 E-->
+        <div class="index_con">
+            <h1 class="main-title">这里是主内容</h1>
+            
+            <div class="swiper-container swiper-list">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="./assets/index/recent_news_imgl.png" alt=""></div>
+                    <div class="swiper-slide"><img src="./assets/index/recent_news_imgl.png" alt=""></div>
+                    <div class="swiper-slide"><img src="./assets/index/recent_news_imgl.png" alt=""></div>
+                </div>
+                <div class="pagination"></div>
+              </div>
+        </div>
+        <!-- 头部导航 S-->
+        @@include("template/footer.html")
+        <!-- 头部导航 E-->
+    </div>
+    <script type="text/javascript" src="./js/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="./js/lib/swiper/swiper.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <!-- CNZZ统计 -->
+    <div style="display: none;">
+        <!-- CNZZ数据统计-->
+        <script type="text/javascript">
+            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+            document.write(unescape("%3Cspan id='cnzz_stat_icon_1261599741'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1261599741' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+    </div>
+</body>
+</html>
