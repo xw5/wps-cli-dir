@@ -1,5 +1,5 @@
 {
-  "name": "flyme_website",
+  "name": "wps_template",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -32,7 +32,9 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-requirejs-optimize": "^1.3.0",
     "gulp-rev": "^8.1.1",
+    "gulp-rev-ayou": "^1.0.1",
     "gulp-rev-collector": "^1.3.1",
+    "gulp-rev-collector-ayou": "^1.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.3",
     "gulp-uglify": "^3.0.0",

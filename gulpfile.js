@@ -8,18 +8,17 @@ var browserSync = require('browser-sync').create();
 var serverProxy = require('./config/server');
 var config = require('./config/config');
 
-console.log(config);
 //编译的路径定义
-var devUrl = './dist/';
-var publishUrl = './publish/';
-var revUrl = './temp/rev/';
-var cdnUrl = 'http://www.test.com/';
+var devUrl = config.devUrl;
+var publishUrl =config.publishUrl;
+var revUrl = config.revUrl;
+var cdnUrl = config.cdnUrl;
 var changeUrl = {
   '\\./assets/': cdnUrl+'assets/',
   '\\./css/': cdnUrl+'css/',
   '\\./js/': cdnUrl+'js/'
 };
-//环境就是获取
+//环境变量获取
 var isDev = process.env.NODE_ENV === 'development';
 if(!isDev){
 	devUrl = publishUrl;
@@ -61,7 +60,7 @@ gulp.task('cssresolve',function(){
 	return gulp.src(config.css === 'less' ? './src/less/*.less' :'./src/sass/*.scss')
 	.pipe(gp.debug({title:config.css === 'less' ? 'less解析:' : 'scss解析:'}))
 	.pipe(gp.sourcemaps.init())
-	//less解析
+	//css解析
 	.pipe(gp.if(config.css === 'less',gp.less()))
 	.pipe(gp.if(config.css === 'scss',gp.sass()))
 	//浏览器兼容前缀添加
