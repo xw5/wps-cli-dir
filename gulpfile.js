@@ -70,10 +70,12 @@ gulp.task('cssresolve',function(){
 	}))
 	.on('error',showErr)
 	.pipe(gp.if(!isDev, gp.cleanCss({compatibility: 'ie8'})))
-	.pipe(gp.rev())
+	.pipe(gp.if(config.version === 'rename', gp.rev()))
+	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
 	.pipe(gp.sourcemaps.write('.'))
 	.pipe(gulp.dest(devUrl+"css/"))
-	.pipe(gp.rev.manifest())
+	.pipe(gp.if(config.version === 'rename', gp.rev.manifest()))
+	.pipe(gp.if(config.version === 'vmd5', gp.revAyou.manifest()))
 	.pipe(gulp.dest(revUrl+'css/'))
 });
 
@@ -83,9 +85,11 @@ gulp.task("assetsMove",function(){
 	.pipe(gp.changed(devUrl+"assets"))
 	.pipe(gp.debug({title:'静态资源移动:'}))
 	.on('error',showErr)
-	.pipe(gp.rev())
+	.pipe(gp.if(config.version === 'rename', gp.rev()))
+	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
 	.pipe(gulp.dest(devUrl+"assets/"))
-	.pipe(gp.rev.manifest())
+	.pipe(gp.if(config.version === 'rename',gp.rev.manifest()))
+	.pipe(gp.if(config.version === 'vmd5', gp.revAyou.manifest()))
 	.pipe(gulp.dest(revUrl+'assets/'))
 });
 
@@ -126,10 +130,12 @@ gulp.task("jspack",function(){
 		ie8:true
 	})))
 	.on('error',showErr)
-	.pipe(gp.rev())
+        .pipe(gp.if(config.version === 'rename', gp.rev()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
 	.pipe(gp.sourcemaps.write('.'))
 	.pipe(gulp.dest(devUrl+"js"))
-	.pipe(gp.rev.manifest())
+        .pipe(gp.if(config.version === 'rename',gp.rev.manifest()))
+        .pipe(gp.if(config.version === 'vmd5', gp.revAyou.manifest()))
 	.pipe(gulp.dest(revUrl+'js/'))
 });
 
@@ -137,31 +143,36 @@ gulp.task("jspack",function(){
 gulp.task('revHtmlCss', function () {
 	return gulp.src([revUrl+'css/*.json', devUrl+'*.html'])
 		.pipe(gp.debug({title:'html中的css版本管理:'}))
-		.pipe(gp.revCollector())
+        .pipe(gp.if(config.version === 'rename',gp.revCollector()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revCollectorAyou()))
 		.pipe(gulp.dest(devUrl));
 });
 gulp.task('revHtmlJs', function () {
 	return gulp.src([revUrl+'js/*.json', devUrl+'*.html'])
 		.pipe(gp.debug({title:'html中的js版本管理:'}))
-		.pipe(gp.revCollector())
+        .pipe(gp.if(config.version === 'rename',gp.revCollector()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revCollectorAyou()))
 		.pipe(gulp.dest(devUrl));
 });
 gulp.task('revHtmlAssets', function () {
 	return gulp.src([revUrl+'assets/*.json', devUrl+'*.html'])
 		.pipe(gp.debug({title:'html中assets资源版本管理:'}))
-		.pipe(gp.revCollector())
+        .pipe(gp.if(config.version === 'rename',gp.revCollector()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revCollectorAyou()))
 		.pipe(gulp.dest(devUrl));
 });
 gulp.task('revCss', function () {
 	return gulp.src([revUrl+'assets/*.json', devUrl+'css/*.css'])
 		.pipe(gp.debug({title:'css中assets资源版本管理:'}))
-		.pipe(gp.revCollector())
+        .pipe(gp.if(config.version === 'rename',gp.revCollector()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revCollectorAyou()))
 		.pipe(gulp.dest(devUrl+'css'));
 });
 gulp.task('revJs', function () {
 	return gulp.src([revUrl+'assets/*.json', devUrl+'js/*.js'])
 		.pipe(gp.debug({title:'js中assets资源版本管理:'}))
-		.pipe(gp.revCollector())
+        .pipe(gp.if(config.version === 'rename',gp.revCollector()))
+        .pipe(gp.if(config.version ==='vmd5', gp.revCollectorAyou()))
 		.pipe(gulp.dest(devUrl+'js'));
 });
 

@@ -1,5 +1,5 @@
 module.exports={
-    css:'scss',
-    js:'es6',
-    version:'md5'
+    css:'less',
+    js:'requirejs',
+    version:'vmd5'
 }
