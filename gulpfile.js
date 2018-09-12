@@ -49,15 +49,10 @@ gulp.task("clean:publish",function(){
     .pipe(gp.clean())
 });
 
-//错误处理
-function showErr(error){
-  console.error(error.toString());
-  this.emit('end')
-}
-
 //开发环境编译less任务,同时做兼容处理
 gulp.task('cssresolve',function(){
 	return gulp.src(config.css === 'less' ? './src/less/*.less' :'./src/sass/*.scss')
+	.pipe(gp.plumber())
 	.pipe(gp.debug({title:config.css === 'less' ? 'less解析:' : 'scss解析:'}))
 	.pipe(gp.sourcemaps.init())
 	//css解析
@@ -67,7 +62,6 @@ gulp.task('cssresolve',function(){
 	.pipe(gp.autoprefixer({
 		browsers:["last 1000 versions"]
 	}))
-	.on('error',showErr)
 	.pipe(gp.if(!isDev, gp.cleanCss({compatibility: 'ie8'})))
 	.pipe(gp.if(config.version === 'rename', gp.rev()))
 	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
@@ -81,9 +75,9 @@ gulp.task('cssresolve',function(){
 //静态等资源移动任务:图片、视频、字体等
 gulp.task("assetsMove",function(){
 	return gulp.src("./src/assets/**")
+	.pipe(gp.plumber())
 	.pipe(gp.changed(devUrl+"assets"))
 	.pipe(gp.debug({title:'静态资源移动:'}))
-	.on('error',showErr)
 	.pipe(gp.if(config.version === 'rename', gp.rev()))
 	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
 	.pipe(gulp.dest(devUrl+"assets/"))
@@ -95,20 +89,20 @@ gulp.task("assetsMove",function(){
 //通用js库插件移动
 gulp.task("libMove",function(){
 	return gulp.src(["src/js/lib/**"])
+	.pipe(gp.plumber())
     .pipe(gp.changed(devUrl+"js/lib/"))
-	.on('error',showErr)
 	.pipe(gulp.dest(devUrl+"js/lib/"))
 });
 
 //html模板功能实现
 gulp.task('include',function(){
 	return gulp.src('src/*.html')
+	.pipe(gp.plumber())
     .pipe(gp.debug({title:'html模板解析:'}))
 	.pipe(gp.fileInclude({
       prefix: '@@',
       basepath: '@file'
     }))
-	.on('error',showErr)
 	.pipe(gp.if(!isDev, gp.urlReplace(changeUrl)))
 	.pipe(gulp.dest(devUrl))
 });
@@ -116,6 +110,7 @@ gulp.task('include',function(){
 //js模块化开发如果是根据条件走require,webpack,ES6
 gulp.task("jspack",function(){
 	return gulp.src("./src/js/*.js")
+	.pipe(gp.plumber())
     .pipe(gp.debug({title:config.js ==='webpack'?'js打包webpack:':'js打包require:'}))
 	.pipe(gp.sourcemaps.init())
 	.pipe(gp.if(config.js === 'webpack' || config.js === 'es6',named()))
@@ -128,13 +123,12 @@ gulp.task("jspack",function(){
 	.pipe(gp.if(!isDev, gp.uglify({
 		ie8:true
 	})))
-	.on('error',showErr)
-        .pipe(gp.if(config.version === 'rename', gp.rev()))
-        .pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
+	.pipe(gp.if(config.version === 'rename', gp.rev()))
+	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
 	.pipe(gp.sourcemaps.write('.'))
 	.pipe(gulp.dest(devUrl+"js"))
-        .pipe(gp.if(config.version === 'rename',gp.rev.manifest()))
-        .pipe(gp.if(config.version === 'vmd5', gp.revAyou.manifest()))
+	.pipe(gp.if(config.version === 'rename',gp.rev.manifest()))
+	.pipe(gp.if(config.version === 'vmd5', gp.revAyou.manifest()))
 	.pipe(gulp.dest(revUrl+'js/'))
 });
 
