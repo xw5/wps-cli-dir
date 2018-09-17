@@ -1,7 +1,8 @@
 module.exports={
-    css:'less',
-    js:'requirejs',
-    version:'vmd5',
+    css:'less',//css模块化方式
+    js:'requirejs',//js模块化开发方式
+    version:'vmd5',//文件版本管理方式
+    template:false,//是否开启html模板支持
     cdnUrl:'http://www.test.com/',//资源要走的cdn路径
     devUrl:'./dist/',//开发构建到的目录
     publishUrl:'./publish/',//上线构建到目录

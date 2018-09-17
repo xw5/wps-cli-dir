@@ -99,10 +99,10 @@ gulp.task('include',function(){
 	return gulp.src('src/*.html')
 	.pipe(gp.plumber())
     .pipe(gp.debug({title:'html模板解析:'}))
-	.pipe(gp.fileInclude({
+	.pipe(gp.if(config.template,gp.fileInclude({
       prefix: '@@',
       basepath: '@file'
-    }))
+    })))
 	.pipe(gp.if(!isDev, gp.urlReplace(changeUrl)))
 	.pipe(gulp.dest(devUrl))
 });
