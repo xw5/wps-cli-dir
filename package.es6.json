@@ -43,7 +43,10 @@
     "http-proxy-middleware": "^0.17.4",
     "run-sequence": "^2.2.1",
     "vinyl-named": "^1.1.0",
-    "webpack-stream": "^5.1.1"
+    "webpack-stream": "^5.1.1",
+    "gulp-px2rem-plugin": "^0.4.0",
+    "gulp.spritesmith": "^6.9.0",
+    "merge-stream": "^1.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0"

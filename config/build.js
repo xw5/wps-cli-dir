@@ -1,9 +1,8 @@
 'use strict';
 require.config({
-    baseUrrl:'js/',
     paths: {
-        util: 'core/util',
-        openAjax:'core/openAjax'
+        util: './core/util',
+        openAjax:'./core/openAjax'
     }
 });
 

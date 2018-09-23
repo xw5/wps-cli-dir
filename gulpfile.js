@@ -49,6 +49,39 @@ gulp.task("clean:publish",function(){
     .pipe(gp.clean())
 });
 
+//精灵图制作
+gulp.task('sprite', function () {
+	var spriteData = gulp.src('./src/assets/sprites/*.png').pipe(spritesmith({
+		imgName: 'sprite.png',
+		cssName: 'sprite.less',
+		padding:5,
+		algorithm:'binary-tree',
+		cssTemplate: function (data) {//css生成规则
+			var arr=[];
+			data.sprites.forEach(function (sprite) {
+					//console.log(sprite);
+					arr.push(".icon-"+sprite.name+
+					"{" +
+					"background-image: url('../assets/"+sprite.escaped_image+"');"+
+					"background-position: "+sprite.px.offset_x+" "+sprite.px.offset_y+";"+
+					"background-size:"+sprite.px.total_width+" "+sprite.px.total_height+";"+
+					"width:"+sprite.px.width+";"+
+					"height:"+sprite.px.height+";"+
+					"}\n");
+			});
+			return arr.join("");
+		}
+	}));
+
+	var imgStream = spriteData.img
+		.pipe(gulp.dest('./src/assets/'));
+
+	var cssStream = spriteData.css
+		.pipe(gulp.dest('./src/less/common/'));
+
+	return merge(imgStream, cssStream);
+});
+
 //开发环境编译less任务,同时做兼容处理
 gulp.task('cssresolve',function(){
 	return gulp.src(config.css === 'less' ? './src/less/*.less' :'./src/sass/*.scss')
@@ -62,6 +95,8 @@ gulp.task('cssresolve',function(){
 	.pipe(gp.autoprefixer({
 		browsers:["last 1000 versions"]
 	}))
+	//rem转换
+	.pipe(gp.if(config.rem,gp.px2remPlugin(config.remConfig)))
 	.pipe(gp.if(!isDev, gp.cleanCss({compatibility: 'ie8'})))
 	.pipe(gp.if(config.version === 'rename', gp.rev()))
 	.pipe(gp.if(config.version ==='vmd5', gp.revAyou()))
@@ -118,7 +153,7 @@ gulp.task("jspack",function(){
 	.pipe(gp.if(config.js === 'requirejs',
 		gp.requirejsOptimize({
 			optimize: 'none',
-			mainConfigFile: './config/requirejsconfig.js'
+			mainConfigFile: './config/build.js'
 	})))
 	.pipe(gp.if(!isDev, gp.uglify({
 		ie8:true
